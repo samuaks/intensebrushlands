@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Kysely lukkarikoneesta</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+<div>
+	<h1>Lomake</h1>
+	<div class="col-md-4">
+	<form class="ui form" action="#" th:action="@{/save}" th:object=${questions} method="post">
+	  <div class="field">
+	    <label>Etunimi</label>
+	    <input type="text" name="first-name" placeholder="Anna etunimesi">
+	  </div>
+	  <div class="field">
+	    <label>Sukunimi</label>
+	    <input type="text" name="last-name" placeholder="Anna sukunimesi">
+	  </div>
+	    <div class="field">
+	    <select>
+	    <option value="" disabled selected hidden>Valitse sukupuoli</option>
+	      <option value="0">Mies</option>
+	      <option value="1">Nainen</option>
+	      <option value="2">Muumi</option>
+	    </select>
+	  </div>
+	  <div class="field">
+	    <div class="ui checkbox">
+	      <input type="checkbox" tabindex="0" class="hidden">
+	      <label>Hyväksyn tietojeni käsittelyn</label>
+	    </div>
+	  </div>
+	  <button class="ui button" type="submit">Submit</button>
+	</form>
+	</div>
+</div>
+</body>
