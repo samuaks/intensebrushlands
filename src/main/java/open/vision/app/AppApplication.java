@@ -9,15 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import open.vision.app.domain.Answer;
 import open.vision.app.domain.AnswerOption;
 import open.vision.app.domain.AnswerOptionRepository;
 import open.vision.app.domain.AnswerRepository;
 import open.vision.app.domain.Question;
 import open.vision.app.domain.QuestionRepository;
-import open.vision.app.domain.User;
-import open.vision.app.domain.UserRepository;
-
 
 
 @SpringBootApplication
@@ -41,7 +37,7 @@ public class AppApplication {
 	
 	
 	@Bean
-	public CommandLineRunner lukkariKysely(QuestionRepository qRepo, AnswerOptionRepository aRepo, AnswerRepository answerRepo, UserRepository uRepo) {
+	public CommandLineRunner lukkariKysely(QuestionRepository qRepo, AnswerOptionRepository aRepo, AnswerRepository answerRepo) {
 		return (args) -> {
 			log.info("Please tell rosie");
 									
@@ -130,11 +126,7 @@ public class AppApplication {
 //			Question testQuestion2 = qRepo.findByQuestionId(2).get(0);
 //			answerRepo.save(new Answer("Mamemo", testQuestion2));
 			
-			//Create 2 users: Admin user and User user
-			User user = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
-			User admin = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
-			uRepo.save(user);
-			uRepo.save(admin);
+			
 			
 		};
 	}
