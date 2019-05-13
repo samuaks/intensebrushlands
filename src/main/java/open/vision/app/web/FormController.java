@@ -132,6 +132,28 @@ public class FormController {
 		
 	}
 	
-	//Add answerOptions to newly selected
+	//List of questions
+	@RequestMapping(value="/qlist")
+	public String getQuestions(Model model) {
+		List<Question> questions = (List<Question>) qRepo.findAll();
+		model.addAttribute("questions", questions);
+		return "qlistform";
+	}
 	
+	//Add answerOptions to newly selected
+	@RequestMapping(value="edit/{id}")
+	public String editQuestion(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("question", qRepo.findById(id));
+		model.addAttribute("option", new AnswerOption());
+		return "editq";
+	}
+	
+	//Save method for answerOptions 
+	@RequestMapping(value="/saveo", method=RequestMethod.GET)
+	public String saveOptions(@ModelAttribute AnswerOption option) {
+		aRepo.save(option);
+		return "redirect:/questions";
+	}
+	
+	//
 }
