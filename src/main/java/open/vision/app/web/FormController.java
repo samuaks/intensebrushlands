@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import open.vision.app.domain.Answer;
 import open.vision.app.domain.AnswerCreatorObject;
 import open.vision.app.domain.AnswerOption;
+import open.vision.app.domain.AnswerOptionCreator;
 import open.vision.app.domain.AnswerOptionRepository;
 import open.vision.app.domain.Question;
 import open.vision.app.domain.QuestionRepository;
@@ -33,57 +34,7 @@ public class FormController {
 	@Autowired 
 	private AnswerOptionRepository aRepo;
 	
-	// == Lomakesivulla tässä mallissa yksi kovakoodattu kysymys ja sen vastausvaihtoehdot. Miten useilla kysymyksillä? ==
-//	@GetMapping("/answerForm")
-//	public String answerForm(Model model) {
-//		
-//		model.addAttribute("question", qRepo.findByType("Lukkarikone5").get(0));
-//		
-//		List<AnswerOption> answerOptions =  qRepo.findByType("Lukkarikone5").get(0).getAnswerOptions();
-//		
-//		model.addAttribute("answerOptions", answerOptions);
-//		
-//		return "answerForm";
-//	}
-	
-//	@RequestMapping(value="/submit", method=RequestMethod.POST)
-//	public @ResponseBody Question sendAnswerRest(@PathVariable("questionId") Long id) {
-//		
-//		qRepo.save();
-//		return answer;
-//	}
-	
-	// == Kysymys otetaan vastaan ja tallennetaan tietokantaan. ==
-	@PostMapping("/answerForm")
-	public String answerSubmit(@ModelAttribute Question question) {
-		
-		qRepo.save(question);
-		
-		return "result";
-	}
-	
-	//Question list
-	@RequestMapping(value="/list")
-	public String getFormList(Model model) {
-		List<Question> questions = (List<Question>) qRepo.findAll();
-		model.addAttribute("questions", questions);
-		return "qlistform";
-	}
-	
-	//Question form
-	@RequestMapping(value="/form")
-	public String getForm(Model model) {
-		model.addAttribute("questions", qRepo.findAll());
-		model.addAttribute("answer", aRepo.findAll());
-		return "singleform";
-	}
-	
-	//Submit form
-	@RequestMapping(value="/submit", method=RequestMethod.POST)
-	public String submitForm(@ModelAttribute AnswerOption answer) {
-		aRepo.save(answer);
-		return "redirect:/singleform";
-	}
+
 	
 	//RESTful service to get all questions
 	@CrossOrigin(origins = "https://localhost:8080")
@@ -148,9 +99,14 @@ public class FormController {
 	}
 	
 	//Save method for answerOptions 
-	@RequestMapping(value="/saveo", method=RequestMethod.GET)
-	public String saveOptions(@ModelAttribute AnswerOption option) {
-		aRepo.save(option);
+	@RequestMapping(value="/saveo", method=RequestMethod.POST)
+	public String saveOptions(AnswerOptionCreator answerOptionCreator) {
+		String value = answerOptionCreator.getValue();
+		Long questionId = answerOptionCreator.getQuestionId();
+		
+		Question question = qRepo.findByQuestionId(questionId).get(0);
+		AnswerOption answerOption = new AnswerOption(value, question);
+		aRepo.save(answerOption);
 		return "redirect:/qlist";
 	}
 	
@@ -163,15 +119,14 @@ public class FormController {
 	
 	//Add answerOptions
 	@RequestMapping(value="/add/{id}", method=RequestMethod.GET)
-	public String addOptions(@PathVariable("id") Question question, Model model) {
-		model.addAttribute("option", aRepo.findByQuestion(question));
+	public String addOptions(@PathVariable("id") Long questionId, Model model) {
+		model.addAttribute("answerOptionCreator", new AnswerOptionCreator(questionId));
 		return "createoptions";
 	}
 	
-	//Login
-	@GetMapping(value="/login")
-	public String login() {
-		return "login";
-	}
+	//
+	
+	
+	
 	
 }
