@@ -144,7 +144,6 @@ public class FormController {
 	@RequestMapping(value="edit/{id}")
 	public String editQuestion(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("question", qRepo.findById(id));
-		model.addAttribute("option", new AnswerOption());
 		return "editq";
 	}
 	
@@ -152,7 +151,7 @@ public class FormController {
 	@RequestMapping(value="/saveo", method=RequestMethod.GET)
 	public String saveOptions(@ModelAttribute AnswerOption option) {
 		aRepo.save(option);
-		return "redirect:/questions";
+		return "redirect:/qlist";
 	}
 	
 	//Delete question
@@ -162,6 +161,11 @@ public class FormController {
 		return "redirect:../qlist";
 	}
 	
-	
+	//Add answerOptions
+	@RequestMapping(value="/add/{id}", method=RequestMethod.GET)
+	public String addOptions(@PathVariable("id") Question question, Model model) {
+		model.addAttribute("option", aRepo.findByQuestion(question));
+		return "createoptions";
+	}
 	
 }

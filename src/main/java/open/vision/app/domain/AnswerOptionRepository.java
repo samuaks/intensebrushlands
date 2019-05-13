@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface AnswerOptionRepository extends CrudRepository<AnswerOption, Long> {
 	
 		List<AnswerOption> findByValue(String value);
+		List<AnswerOption> findByQuestion(Question question);
 }

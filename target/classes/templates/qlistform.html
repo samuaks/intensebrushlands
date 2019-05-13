@@ -23,7 +23,9 @@
 			<th>id</th>
 			<th>Title</th>
 			<th>Type</th>
-		
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>add answer</th>
 			
 		</tr>
 		
@@ -33,6 +35,7 @@
 				<td th:text="${question.type}">type</td>
 				<td><a class="btn btn-info" th:href="@{/edit/{id}(id=${question.questionId})}">Edit</a></td>
 				<td><a class="btn btn-warning" th:href="@{/delete/{id}(id=${question.questionId})}">Delete</a></td>
+				<td><a class="btn btn-info" th:href="@{/add/{id}(id=${question.questionId})}">Add options</a>
 			</tr>
 	</table>
 	<a class="btn btn-primary" th:href="@{/createQuestion}">Insert question</a>
