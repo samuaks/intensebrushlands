@@ -168,4 +168,10 @@ public class FormController {
 		return "createoptions";
 	}
 	
+	//Login
+	@GetMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 }
