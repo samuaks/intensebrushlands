@@ -23,7 +23,7 @@
 			<th>id</th>
 			<th>Title</th>
 			<th>Type</th>
-			<th>Answer options</th>
+		
 			
 		</tr>
 		
@@ -31,7 +31,6 @@
 				<td th:text="${question.questionId}">id</td>
 				<td th:text="${question.title}">title</td>
 				<td th:text="${question.type}">type</td>
-				<td th:text="${question.answerOptions.value}">value</td>
 				<td><a class="btn btn-info" th:href="@{/edit/{id}(id=${question.questionId})}">Edit</a></td>
 				<td><a class="btn btn-warning" th:href="@{/delete/{id}(id=${question.questionId})}">Delete</a></td>
 			</tr>

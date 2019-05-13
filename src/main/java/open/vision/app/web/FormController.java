@@ -128,7 +128,7 @@ public class FormController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String saveQuestion(@ModelAttribute Question question) {
 		qRepo.save(question);
-		return "redirect:/questions";
+		return "redirect:/qlist";
 		
 	}
 	
@@ -155,5 +155,13 @@ public class FormController {
 		return "redirect:/questions";
 	}
 	
-	//
+	//Delete question
+	@RequestMapping(value="/delete/{id}",method=RequestMethod.GET)
+	public String deleteQuestion(@PathVariable("id") Long id) {
+		qRepo.deleteById(id);
+		return "redirect:../qlist";
+	}
+	
+	
+	
 }
