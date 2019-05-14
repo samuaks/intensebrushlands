@@ -18,8 +18,10 @@
 		<div style="clear: both; display: block; height: 10px"></div>
 		
 		<label for="ingre">Type</label>
-		<input type="text" id="type" th:field="${question.type}" class="form-control"/>
-		<div style="clear: both; display: block; height: 10px"></div>
+		 <select th:field="${question.type}">
+			 	<option value="monivalinta">monivalinta</option>
+			 	<option value="avoin">avoin</option>
+		</select>
 		
 		<div style="clear: both; display: block; height: 10px"></div>
 		<input type="submit" class="btn btn-primary" value="Save"/> 
